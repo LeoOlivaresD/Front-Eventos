@@ -1,69 +1,13 @@
-// Datos mock de eventos
-const eventos = [
-  {
-    id: 1,
-    titulo: "Concierto de Rock",
-    categoria: "Conciertos",
-    fecha: "2025-12-15",
-    lugar: "Estadio Nacional",
-    descripcion: "Un increíble concierto de rock en vivo con las mejores bandas del género",
-    artista: "The Rockers",
-    precio: 50,
-    imagen: new URL('/images/concierto-rock.jpg', import.meta.url).href
-  },
-  {
-    id: 2,
-    titulo: "Conferencia de Tecnología",
-    categoria: "Conferencias",
-    fecha: "2025-12-20",
-    lugar: "Centro de Convenciones",
-    descripcion: "Las últimas tendencias en tecnología e IA con expertos internacionales",
-    ponente: "Dr. Juan Silva",
-    precio: 30,
-    imagen: new URL('/images/conferencia-tech.jpeg', import.meta.url).href
-  },
-  {
-    id: 3,
-    titulo: "Festival de Jazz",
-    categoria: "Conciertos",
-    fecha: "2025-12-25",
-    lugar: "Teatro Municipal",
-    descripcion: "Noches de jazz clásico y moderno con músicos profesionales",
-    artista: "Jazz Masters",
-    precio: 40,
-    imagen: new URL('/images/festival-jazz.jpg', import.meta.url).href
-  },
-  {
-    id: 4,
-    titulo: "Workshop de Diseño UX",
-    categoria: "Conferencias",
-    fecha: "2026-01-10",
-    lugar: "Centro de Innovación",
-    descripcion: "Aprende diseño UX/UI desde cero con ejercicios prácticos",
-    ponente: "María González",
-    precio: 25,
-    imagen: new URL('/images/workshop-ux.webp', import.meta.url).href
-  }
-];
-
-// Simulación de API REST
-export const fetchEventosREST = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(eventos);
-    }, 500);
-  });
+export const fetchEventosREST = async () => {
+  console.log('%c REST API: Pidiendo eventos a http://api.local/eventos', 'color: #10b981; font-weight: bold; font-size: 12px');
+  const response = await fetch('http://api.local/eventos');
+  const datos = await response.json();
+  return datos;
 };
 
-export const fetchEventoByIdREST = (id) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const evento = eventos.find(e => e.id === parseInt(id));
-      if (evento) {
-        resolve(evento);
-      } else {
-        reject(new Error("Evento no encontrado"));
-      }
-    }, 300);
-  });
+export const fetchEventoByIdREST = async (id) => {
+  console.log('%c REST API: Pidiendo evento con ID ' + id, 'color: #10b981; font-weight: bold; font-size: 12px');
+  const response = await fetch(`http://api.local/evento/${id}`);
+  if (!response.ok) throw new Error('Evento no encontrado');
+  return response.json();
 };
