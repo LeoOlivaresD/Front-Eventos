@@ -1,22 +1,87 @@
 import { useState, useEffect } from 'react';
-import { fetchEventosREST } from '../mocks/restAPI';
 import EventCard from './EventCard';
+
+// Datos de respaldo para producción
+const eventosMock = [
+  {
+    id: 1,
+    titulo: "Concierto de Rock",
+    categoria: "Conciertos",
+    fecha: "2025-12-15",
+    lugar: "Estadio Nacional",
+    descripcion: "Un increíble concierto de rock en vivo con las mejores bandas del género",
+    artista: "The Rockers",
+    ponente: null,
+    precio: 50,
+    imagen: "/Front-Eventos/images/concierto-rock.jpg"
+  },
+  {
+    id: 2,
+    titulo: "Conferencia de Tecnología",
+    categoria: "Conferencias",
+    fecha: "2025-12-20",
+    lugar: "Centro de Convenciones",
+    descripcion: "Las últimas tendencias en tecnología e IA con expertos internacionales",
+    artista: null,
+    ponente: "Dr. Juan Silva",
+    precio: 30,
+    imagen: "/Front-Eventos/images/conferencia-tech.jpeg"
+  },
+  {
+    id: 3,
+    titulo: "Festival de Jazz",
+    categoria: "Conciertos",
+    fecha: "2025-12-25",
+    lugar: "Teatro Municipal",
+    descripcion: "Noches de jazz clásico y moderno con músicos profesionales",
+    artista: "Jazz Masters",
+    ponente: null,
+    precio: 40,
+    imagen: "/Front-Eventos/images/festival-jazz.jpg"
+  },
+  {
+    id: 4,
+    titulo: "Workshop de Diseño UX",
+    categoria: "Conferencias",
+    fecha: "2026-01-10",
+    lugar: "Centro de Innovación",
+    descripcion: "Aprende diseño UX/UI desde cero con ejercicios prácticos",
+    artista: null,
+    ponente: "María González",
+    precio: 25,
+    imagen: "/Front-Eventos/images/workshop-ux.webp"
+  }
+];
+
+const isDevelopment = import.meta.env.DEV;
 
 export default function EventList() {
   const [eventos, setEventos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
-  const [apiUsada, setApiUsada] = useState('');
 
   useEffect(() => {
     const cargarEventos = async () => {
       try {
         setCargando(true);
-        console.log('%c API: REST - Cargando eventos desde restAPI.js', 'color: #10b981; font-weight: bold; font-size: 12px');
-        const datos = await fetchEventosREST();
-        console.log('%c API: REST - Datos recibidos correctamente', 'color: #10b981; font-weight: bold; font-size: 12px', datos);
-        setEventos(datos);
-        setApiUsada('REST API');
+        
+        if (isDevelopment) {
+          // En desarrollo: usar MSW
+          console.log('%c API: REST - Cargando eventos con MSW', 'color: #10b981; font-weight: bold; font-size: 12px');
+          const response = await fetch('/api/eventos');
+          if (!response.ok) {
+            throw new Error('Error al cargar eventos');
+          }
+          const datos = await response.json();
+          setEventos(datos);
+        } else {
+          // En producción: usar datos mock directos
+          console.log('%c API: REST - Modo producción (sin MSW)', 'color: #10b981; font-weight: bold; font-size: 12px');
+          await new Promise(resolve => setTimeout(resolve, 500)); // Simular delay
+          setEventos(eventosMock);
+        }
+        
+        console.log('%c API: REST - Datos cargados correctamente', 'color: #10b981; font-weight: bold; font-size: 12px');
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -55,7 +120,7 @@ export default function EventList() {
           fontSize: '12px',
           fontWeight: 'bold'
         }}>
-           Datos cargados con: {apiUsada}
+          📡 Datos cargados con: REST API {!isDevelopment && '(Producción)'}
         </span>
       </div>
 

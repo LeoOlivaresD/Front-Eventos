@@ -1,36 +1,121 @@
-import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { queryEventoByIdGraphQL } from '../mocks/graphqlAPI';
+import { gql } from '@apollo/client';
+import { useQuery } from '@apollo/client/react';
+import { useState, useEffect } from 'react';
+
+// Datos mock para producción
+const eventosMock = [
+  {
+    id: 1,
+    titulo: "Concierto de Rock",
+    categoria: "Conciertos",
+    fecha: "2025-12-15",
+    lugar: "Estadio Nacional",
+    descripcion: "Un increíble concierto de rock en vivo con las mejores bandas del género",
+    artista: "The Rockers",
+    ponente: null,
+    precio: 50,
+    imagen: "/Front-Eventos/images/concierto-rock.jpg"
+  },
+  {
+    id: 2,
+    titulo: "Conferencia de Tecnología",
+    categoria: "Conferencias",
+    fecha: "2025-12-20",
+    lugar: "Centro de Convenciones",
+    descripcion: "Las últimas tendencias en tecnología e IA con expertos internacionales",
+    artista: null,
+    ponente: "Dr. Juan Silva",
+    precio: 30,
+    imagen: "/Front-Eventos/images/conferencia-tech.jpeg"
+  },
+  {
+    id: 3,
+    titulo: "Festival de Jazz",
+    categoria: "Conciertos",
+    fecha: "2025-12-25",
+    lugar: "Teatro Municipal",
+    descripcion: "Noches de jazz clásico y moderno con músicos profesionales",
+    artista: "Jazz Masters",
+    ponente: null,
+    precio: 40,
+    imagen: "/Front-Eventos/images/festival-jazz.jpg"
+  },
+  {
+    id: 4,
+    titulo: "Workshop de Diseño UX",
+    categoria: "Conferencias",
+    fecha: "2026-01-10",
+    lugar: "Centro de Innovación",
+    descripcion: "Aprende diseño UX/UI desde cero con ejercicios prácticos",
+    artista: null,
+    ponente: "María González",
+    precio: 25,
+    imagen: "/Front-Eventos/images/workshop-ux.webp"
+  }
+];
+
+const isDevelopment = import.meta.env.DEV;
+
+// Definir la query de GraphQL
+const GET_EVENTO = gql`
+  query GetEventoById($id: Int!) {
+    evento(id: $id) {
+      id
+      titulo
+      categoria
+      fecha
+      lugar
+      descripcion
+      artista
+      ponente
+      precio
+      imagen
+    }
+  }
+`;
 
 export default function EventPage() {
   const { id } = useParams();
-  const [evento, setEvento] = useState(null);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState(null);
-  const [apiUsada, setApiUsada] = useState('');
   const [mostrarModal, setMostrarModal] = useState(false);
   const [cantidad, setCantidad] = useState(1);
   const [compraExitosa, setCompraExitosa] = useState(false);
 
-  useEffect(() => {
-    const cargarEvento = async () => {
-      try {
-        setCargando(true);
-        console.log('%c API: GraphQL - Cargando evento ID ' + id + ' desde graphqlAPI.js', 'color: #f59e0b; font-weight: bold; font-size: 12px');
-        const datos = await queryEventoByIdGraphQL(id);
-        console.log('%c API: GraphQL - Evento recibido correctamente', 'color: #f59e0b; font-weight: bold; font-size: 12px', datos);
-        setEvento(datos);
-        setApiUsada('GraphQL');
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setCargando(false);
-      }
-    };
+  // Estado para producción
+  const [cargandoProd, setCargandoProd] = useState(!isDevelopment);
+  const [eventoProd, setEventoProd] = useState(null);
+  const [errorProd, setErrorProd] = useState(null);
 
-    cargarEvento();
+  // Usar Apollo Client solo en desarrollo
+  const { loading: cargandoApollo, error: errorApollo, data: dataApollo } = isDevelopment 
+    ? useQuery(GET_EVENTO, { variables: { id: parseInt(id) } })
+    : { loading: false, error: null, data: null };
+
+  // Cargar datos en producción
+  useEffect(() => {
+    if (!isDevelopment) {
+      const cargarEvento = async () => {
+        setCargandoProd(true);
+        await new Promise(resolve => setTimeout(resolve, 500)); // Simular delay
+        
+        const eventoEncontrado = eventosMock.find(e => e.id === parseInt(id));
+        if (eventoEncontrado) {
+          setEventoProd(eventoEncontrado);
+          setErrorProd(null);
+        } else {
+          setErrorProd({ message: 'Evento no encontrado' });
+        }
+        setCargandoProd(false);
+      };
+      
+      cargarEvento();
+    }
   }, [id]);
+
+  // Determinar valores finales según el modo
+  const cargando = isDevelopment ? cargandoApollo : cargandoProd;
+  const error = isDevelopment ? errorApollo : errorProd;
+  const evento = isDevelopment ? dataApollo?.evento : eventoProd;
 
   const handleComprar = () => {
     setCompraExitosa(true);
@@ -59,7 +144,7 @@ export default function EventPage() {
     }}>
       <div className="container">
         <div className="alert alert-danger" role="alert">
-          Error: {error}
+          Error: {error.message}
         </div>
       </div>
     </div>
@@ -104,7 +189,7 @@ export default function EventPage() {
             fontSize: '12px',
             fontWeight: 'bold'
           }}>
-             Evento cargado con: {apiUsada}
+            🚀 Evento cargado con: GraphQL + Apollo Client {!isDevelopment && '(Producción)'}
           </span>
         </div>
 
@@ -213,7 +298,7 @@ export default function EventPage() {
                 letterSpacing: '0.5px'
               }}
             >
-               Comprar Entrada
+              🎟️ Comprar Entrada
             </button>
           </div>
         </div>
@@ -245,7 +330,7 @@ export default function EventPage() {
             {!compraExitosa ? (
               <>
                 <h2 style={{ color: '#fff', marginBottom: '24px', textAlign: 'center' }}>
-                   Comprar Entrada
+                  🎟️ Comprar Entrada
                 </h2>
 
                 <div style={{ marginBottom: '24px' }}>
@@ -375,7 +460,7 @@ export default function EventPage() {
             ) : (
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '64px', marginBottom: '16px' }}>
-                  
+                
                 </div>
                 <h2 style={{ color: '#10b981', marginBottom: '16px' }}>
                   ¡Compra exitosa!

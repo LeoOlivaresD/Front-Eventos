@@ -1,14 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import App from './App.jsx'
 import './index.css'
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client/react';
 
-// Inicializar MSW en desarrollo
-async function initMSW() {
+// Habilitar mocking
+async function enableMocking() {
   if (import.meta.env.DEV) {
-    const { worker } = await import('./mocks/browser.js');
-    await worker.start({ 
+    const { worker } = await import('./mocks/browser');
+    return worker.start({
       onUnhandledRequest: 'bypass',
       serviceWorker: {
         url: '/Front-Eventos/mockServiceWorker.js'
@@ -17,10 +18,16 @@ async function initMSW() {
   }
 }
 
-initMSW().then(() => {
-  ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
+// Configurar Apollo Client
+const client = new ApolloClient({
+  link: new HttpLink({ uri: "/graphql" }),
+  cache: new InMemoryCache()
+});
+
+enableMocking().then(() => {
+  createRoot(document.getElementById('root')).render(
+    <ApolloProvider client={client}>
       <App />
-    </React.StrictMode>,
+    </ApolloProvider>
   )
 });
