@@ -1,4 +1,4 @@
-/* Reset global - Debe estar PRIMERO */
+/* Reset global */
 html, body, #root {
   margin: 0;
   padding: 0;

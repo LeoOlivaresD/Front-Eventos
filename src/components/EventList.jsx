@@ -6,17 +6,17 @@ export default function EventList() {
   const [eventos, setEventos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
-  const [apiUsada, setApiUsada] = useState(''); // ← Nuevo
+  const [apiUsada, setApiUsada] = useState('');
 
   useEffect(() => {
     const cargarEventos = async () => {
       try {
         setCargando(true);
-        console.log('%c📡 API: REST - Cargando eventos desde restAPI.js', 'color: #10b981; font-weight: bold; font-size: 12px');
+        console.log('%c API: REST - Cargando eventos desde restAPI.js', 'color: #10b981; font-weight: bold; font-size: 12px');
         const datos = await fetchEventosREST();
-        console.log('%c✅ API: REST - Datos recibidos correctamente', 'color: #10b981; font-weight: bold; font-size: 12px', datos);
+        console.log('%c API: REST - Datos recibidos correctamente', 'color: #10b981; font-weight: bold; font-size: 12px', datos);
         setEventos(datos);
-        setApiUsada('REST API'); // ← Nuevo
+        setApiUsada('REST API');
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -55,7 +55,7 @@ export default function EventList() {
           fontSize: '12px',
           fontWeight: 'bold'
         }}>
-          📡 Datos cargados con: {apiUsada}
+           Datos cargados con: {apiUsada}
         </span>
       </div>
 

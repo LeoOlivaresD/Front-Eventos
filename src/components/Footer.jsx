@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="row mb-4">
           <div className="col-md-4 mb-3">
             <h5 className="fw-bold mb-3" style={{ color: '#667eea' }}>
-              🎭 Centro de Eventos
+              Centro de Eventos
             </h5>
             <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem' }}>
               Descubre los mejores eventos y experiencias en tu ciudad. Conecta con artistas, conferencistas y comunidades.

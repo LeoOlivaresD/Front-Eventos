@@ -16,9 +16,9 @@ export default function EventPage() {
     const cargarEvento = async () => {
       try {
         setCargando(true);
-        console.log('%c📡 API: GraphQL - Cargando evento ID ' + id + ' desde graphqlAPI.js', 'color: #f59e0b; font-weight: bold; font-size: 12px');
+        console.log('%c API: GraphQL - Cargando evento ID ' + id + ' desde graphqlAPI.js', 'color: #f59e0b; font-weight: bold; font-size: 12px');
         const datos = await queryEventoByIdGraphQL(id);
-        console.log('%c✅ API: GraphQL - Evento recibido correctamente', 'color: #f59e0b; font-weight: bold; font-size: 12px', datos);
+        console.log('%c API: GraphQL - Evento recibido correctamente', 'color: #f59e0b; font-weight: bold; font-size: 12px', datos);
         setEvento(datos);
         setApiUsada('GraphQL');
         setError(null);
@@ -104,7 +104,7 @@ export default function EventPage() {
             fontSize: '12px',
             fontWeight: 'bold'
           }}>
-            📡 Evento cargado con: {apiUsada}
+             Evento cargado con: {apiUsada}
           </span>
         </div>
 
@@ -213,7 +213,7 @@ export default function EventPage() {
                 letterSpacing: '0.5px'
               }}
             >
-              🎫 Comprar Entrada
+               Comprar Entrada
             </button>
           </div>
         </div>
@@ -245,7 +245,7 @@ export default function EventPage() {
             {!compraExitosa ? (
               <>
                 <h2 style={{ color: '#fff', marginBottom: '24px', textAlign: 'center' }}>
-                  🎫 Comprar Entrada
+                   Comprar Entrada
                 </h2>
 
                 <div style={{ marginBottom: '24px' }}>
@@ -375,7 +375,7 @@ export default function EventPage() {
             ) : (
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '64px', marginBottom: '16px' }}>
-                  ✅
+                  
                 </div>
                 <h2 style={{ color: '#10b981', marginBottom: '16px' }}>
                   ¡Compra exitosa!
