@@ -25,53 +25,87 @@ export default function EventPage() {
     cargarEvento();
   }, [id]);
 
-  if (cargando) return <div className="loading">Cargando detalles...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
-  if (!evento) return <div className="error">Evento no encontrado</div>;
+  if (cargando) return (
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="alert alert-danger m-4" role="alert">
+      Error: {error}
+    </div>
+  );
+  
+  if (!evento) return (
+    <div className="alert alert-warning m-4" role="alert">
+      Evento no encontrado
+    </div>
+  );
 
   return (
-    <div className="event-page">
-      <Link to="/" className="event-page__back">
-        ← Volver a Eventos
-      </Link>
+    <div className="bg-light min-vh-100 py-5">
+      <div className="container">
+        <Link to="/" className="btn btn-outline-primary mb-4">
+          ← Volver a Eventos
+        </Link>
 
-      <div className="event-page__container">
-        <div className="event-page__header">
-          <h1 className="event-page__title">{evento.titulo}</h1>
-          <span className="event-page__category">{evento.categoria}</span>
-        </div>
-
-        <div className="event-page__content">
-          <p className="event-page__description">{evento.descripcion}</p>
-
-          <div className="event-page__details">
-            <div className="event-page__detail">
-              <strong>📅 Fecha:</strong>
-              <p>{evento.fecha}</p>
-            </div>
-            <div className="event-page__detail">
-              <strong>📍 Lugar:</strong>
-              <p>{evento.lugar}</p>
-            </div>
-            <div className="event-page__detail">
-              <strong>💵 Precio:</strong>
-              <p>${evento.precio}</p>
-            </div>
-            {evento.artista && (
-              <div className="event-page__detail">
-                <strong>🎤 Artista:</strong>
-                <p>{evento.artista}</p>
+        <div className="card shadow-lg border-0">
+          <div className="card-header bg-gradient text-white py-5">
+            <div className="d-flex justify-content-between align-items-start gap-3">
+              <div>
+                <h1 className="card-title mb-0">{evento.titulo}</h1>
               </div>
-            )}
-            {evento.ponente && (
-              <div className="event-page__detail">
-                <strong>👤 Ponente:</strong>
-                <p>{evento.ponente}</p>
-              </div>
-            )}
+              <span className="badge bg-light text-dark">{evento.categoria}</span>
+            </div>
           </div>
 
-          <button className="event-page__button">Comprar Entrada</button>
+          <div className="card-body p-5">
+            <p className="fs-5 text-muted mb-4">{evento.descripcion}</p>
+
+            <div className="row g-4 mb-4">
+              <div className="col-md-6">
+                <div className="p-3 bg-light rounded border-start border-primary border-4">
+                  <strong className="d-block mb-2">📅 Fecha</strong>
+                  <p className="mb-0 text-muted">{evento.fecha}</p>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="p-3 bg-light rounded border-start border-primary border-4">
+                  <strong className="d-block mb-2">📍 Lugar</strong>
+                  <p className="mb-0 text-muted">{evento.lugar}</p>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="p-3 bg-light rounded border-start border-primary border-4">
+                  <strong className="d-block mb-2">💵 Precio</strong>
+                  <p className="mb-0 text-muted">${evento.precio}</p>
+                </div>
+              </div>
+              {evento.artista && (
+                <div className="col-md-6">
+                  <div className="p-3 bg-light rounded border-start border-primary border-4">
+                    <strong className="d-block mb-2">🎤 Artista</strong>
+                    <p className="mb-0 text-muted">{evento.artista}</p>
+                  </div>
+                </div>
+              )}
+              {evento.ponente && (
+                <div className="col-md-6">
+                  <div className="p-3 bg-light rounded border-start border-primary border-4">
+                    <strong className="d-block mb-2">👤 Ponente</strong>
+                    <p className="mb-0 text-muted">{evento.ponente}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <button className="btn btn-primary btn-lg w-100">
+              Comprar Entrada
+            </button>
+          </div>
         </div>
       </div>
     </div>

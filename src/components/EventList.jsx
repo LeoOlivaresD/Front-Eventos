@@ -24,13 +24,26 @@ export default function EventList() {
     cargarEventos();
   }, []);
 
-  if (cargando) return <div className="loading">Cargando eventos...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
+  if (cargando) return (
+    <div className="d-flex justify-content-center">
+      <div className="spinner-border text-light" role="status">
+        <span className="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  );
+
+  if (error) return (
+    <div className="alert alert-danger" role="alert">
+      Error: {error}
+    </div>
+  );
 
   return (
-    <div className="event-list">
+    <div className="row g-4">
       {eventos.map(evento => (
-        <EventCard key={evento.id} evento={evento} />
+        <div key={evento.id} className="col-lg-6 col-xl-4">
+          <EventCard evento={evento} />
+        </div>
       ))}
     </div>
   );
