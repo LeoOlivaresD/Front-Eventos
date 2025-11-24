@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 export default function AppRoutes() {
   return (
-    <Router>
+    <Router basename="/Front-Eventos/">
       <div className="d-flex flex-column min-vh-100">
         <main className="flex-grow-1">
           <Routes>

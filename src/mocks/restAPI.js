@@ -9,7 +9,7 @@ const eventos = [
     descripcion: "Un increíble concierto de rock en vivo con las mejores bandas del género",
     artista: "The Rockers",
     precio: 50,
-    imagen: new URL('../assets/images/concierto-rock.jpg', import.meta.url).href
+    imagen: new URL('/images/concierto-rock.jpg', import.meta.url).href
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const eventos = [
     descripcion: "Las últimas tendencias en tecnología e IA con expertos internacionales",
     ponente: "Dr. Juan Silva",
     precio: 30,
-    imagen: new URL('../assets/images/conferencia-tech.jpeg', import.meta.url).href
+    imagen: new URL('/images/conferencia-tech.jpeg', import.meta.url).href
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const eventos = [
     descripcion: "Noches de jazz clásico y moderno con músicos profesionales",
     artista: "Jazz Masters",
     precio: 40,
-    imagen: new URL('../assets/images/festival-jazz.jpg', import.meta.url).href
+    imagen: new URL('/images/festival-jazz.jpg', import.meta.url).href
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const eventos = [
     descripcion: "Aprende diseño UX/UI desde cero con ejercicios prácticos",
     ponente: "María González",
     precio: 25,
-    imagen: new URL('../assets/images/workshop-ux.webp', import.meta.url).href
+    imagen: new URL('/images/workshop-ux.webp', import.meta.url).href
   }
 ];
 

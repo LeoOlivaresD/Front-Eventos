@@ -6,13 +6,17 @@ export default function EventList() {
   const [eventos, setEventos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const [apiUsada, setApiUsada] = useState(''); // ← Nuevo
 
   useEffect(() => {
     const cargarEventos = async () => {
       try {
         setCargando(true);
+        console.log('%c📡 API: REST - Cargando eventos desde restAPI.js', 'color: #10b981; font-weight: bold; font-size: 12px');
         const datos = await fetchEventosREST();
+        console.log('%c✅ API: REST - Datos recibidos correctamente', 'color: #10b981; font-weight: bold; font-size: 12px', datos);
         setEventos(datos);
+        setApiUsada('REST API'); // ← Nuevo
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -39,12 +43,29 @@ export default function EventList() {
   );
 
   return (
-    <div className="row g-4">
-      {eventos.map(evento => (
-        <div key={evento.id} className="col-lg-6 col-xl-4">
-          <EventCard evento={evento} />
-        </div>
-      ))}
+    <div>
+      {/* Badge mostrando API usada */}
+      <div className="mb-3" style={{ textAlign: 'center' }}>
+        <span style={{
+          background: 'rgba(16, 185, 129, 0.2)',
+          border: '1px solid #10b981',
+          color: '#10b981',
+          padding: '8px 16px',
+          borderRadius: '20px',
+          fontSize: '12px',
+          fontWeight: 'bold'
+        }}>
+          📡 Datos cargados con: {apiUsada}
+        </span>
+      </div>
+
+      <div className="row g-4">
+        {eventos.map(evento => (
+          <div key={evento.id} className="col-lg-6 col-xl-4">
+            <EventCard evento={evento} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
