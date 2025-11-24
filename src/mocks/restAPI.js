@@ -1,4 +1,3 @@
-// Datos mock de eventos
 const eventos = [
   {
     id: 1,
@@ -6,9 +5,10 @@ const eventos = [
     categoria: "Conciertos",
     fecha: "2025-12-15",
     lugar: "Estadio Nacional",
-    descripcion: "Un increíble concierto de rock en vivo",
+    descripcion: "Un increíble concierto de rock en vivo con las mejores bandas del género",
     artista: "The Rockers",
-    precio: 50
+    precio: 50,
+    imagen: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&h=300&fit=crop"
   },
   {
     id: 2,
@@ -16,9 +16,10 @@ const eventos = [
     categoria: "Conferencias",
     fecha: "2025-12-20",
     lugar: "Centro de Convenciones",
-    descripcion: "Las últimas tendencias en tecnología e IA",
+    descripcion: "Las últimas tendencias en tecnología e IA con expertos internacionales",
     ponente: "Dr. Juan Silva",
-    precio: 30
+    precio: 30,
+    imagen: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop"
   },
   {
     id: 3,
@@ -26,9 +27,10 @@ const eventos = [
     categoria: "Conciertos",
     fecha: "2025-12-25",
     lugar: "Teatro Municipal",
-    descripcion: "Noches de jazz clásico y moderno",
+    descripcion: "Noches de jazz clásico y moderno con músicos profesionales",
     artista: "Jazz Masters",
-    precio: 40
+    precio: 40,
+    imagen: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&h=300&fit=crop"
   },
   {
     id: 4,
@@ -36,30 +38,9 @@ const eventos = [
     categoria: "Conferencias",
     fecha: "2026-01-10",
     lugar: "Centro de Innovación",
-    descripcion: "Aprende diseño UX/UI desde cero",
+    descripcion: "Aprende diseño UX/UI desde cero con ejercicios prácticos",
     ponente: "María González",
-    precio: 25
+    precio: 25,
+    imagen: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop"
   }
 ];
-
-// Simulación de API REST
-export const fetchEventosREST = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(eventos);
-    }, 500); // Simula latencia de red
-  });
-};
-
-export const fetchEventoByIdREST = (id) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const evento = eventos.find(e => e.id === parseInt(id));
-      if (evento) {
-        resolve(evento);
-      } else {
-        reject(new Error("Evento no encontrado"));
-      }
-    }, 300);
-  });
-};
