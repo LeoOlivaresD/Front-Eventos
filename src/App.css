@@ -1,3 +1,25 @@
+/* Reset global - Debe estar PRIMERO */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%) fixed;
+  overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
 /* Gradientes personalizados */
 .bg-gradient {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
