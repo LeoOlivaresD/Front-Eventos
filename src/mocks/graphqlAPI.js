@@ -1,3 +1,4 @@
+// Datos mock (mismo que REST)
 const eventos = [
   {
     id: 1,
@@ -8,7 +9,7 @@ const eventos = [
     descripcion: "Un increíble concierto de rock en vivo con las mejores bandas del género",
     artista: "The Rockers",
     precio: 50,
-    imagen: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=500&h=300&fit=crop"
+    imagen: new URL('../assets/images/concierto-rock.jpg', import.meta.url).href
   },
   {
     id: 2,
@@ -19,7 +20,7 @@ const eventos = [
     descripcion: "Las últimas tendencias en tecnología e IA con expertos internacionales",
     ponente: "Dr. Juan Silva",
     precio: 30,
-    imagen: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop"
+    imagen: new URL('../assets/images/conferencia-tech.jpeg', import.meta.url).href
   },
   {
     id: 3,
@@ -30,7 +31,7 @@ const eventos = [
     descripcion: "Noches de jazz clásico y moderno con músicos profesionales",
     artista: "Jazz Masters",
     precio: 40,
-    imagen: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500&h=300&fit=crop"
+    imagen: new URL('../assets/images/festival-jazz.jpg', import.meta.url).href
   },
   {
     id: 4,
@@ -41,6 +42,28 @@ const eventos = [
     descripcion: "Aprende diseño UX/UI desde cero con ejercicios prácticos",
     ponente: "María González",
     precio: 25,
-    imagen: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop"
+    imagen: new URL('../assets/images/workshop-ux.webp', import.meta.url).href
   }
 ];
+
+// Simulación de GraphQL
+export const queryEventoByIdGraphQL = (id) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const evento = eventos.find(e => e.id === parseInt(id));
+      if (evento) {
+        resolve(evento);
+      } else {
+        reject(new Error("Evento no encontrado en GraphQL"));
+      }
+    }, 400);
+  });
+};
+
+export const queryAllEventosGraphQL = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(eventos);
+    }, 500);
+  });
+};
