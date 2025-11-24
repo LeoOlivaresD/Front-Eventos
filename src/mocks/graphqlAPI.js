@@ -1,6 +1,6 @@
 export const queryEventoByIdGraphQL = async (id) => {
-  console.log('%c GraphQL: Pidiendo evento con ID ' + id, 'color: #f59e0b; font-weight: bold; font-size: 12px');
-  const response = await fetch('http://api.local/graphql', {
+  console.log('%cGraphQL: Pidiendo evento con ID ' + id, 'color: #f59e0b; font-weight: bold; font-size: 12px');
+  const response = await fetch('/api/graphql', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -29,8 +29,8 @@ export const queryEventoByIdGraphQL = async (id) => {
 };
 
 export const queryAllEventosGraphQL = async () => {
-  console.log('%c GraphQL: Pidiendo todos los eventos', 'color: #f59e0b; font-weight: bold; font-size: 12px');
-  const response = await fetch('http://api.local/graphql', {
+  console.log('%cGraphQL: Pidiendo todos los eventos', 'color: #f59e0b; font-weight: bold; font-size: 12px');
+  const response = await fetch('/api/graphql', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

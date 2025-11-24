@@ -48,19 +48,19 @@ const eventos = [
   }
 ];
 
-// Handlers REST
+// Handlers REST - Con rutas relativas
 export const restHandlers = [
-  http.get('http://api.local/eventos', () => {
-    console.log('%c MSW: Interceptó GET /eventos (REST)', 'color: #10b981; font-weight: bold; font-size: 12px');
+  http.get('/api/eventos', () => {
+    console.log('%cMSW: Interceptó GET /api/eventos (REST)', 'color: #10b981; font-weight: bold; font-size: 12px');
     return new Response(JSON.stringify(eventos), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
   }),
 
-  http.get('http://api.local/evento/:id', ({ params }) => {
+  http.get('/api/evento/:id', ({ params }) => {
     const evento = eventos.find(e => e.id === parseInt(params.id));
-    console.log('%c MSW: Interceptó GET /evento/:id (REST)', 'color: #10b981; font-weight: bold; font-size: 12px');
+    console.log('%cMSW: Interceptó GET /api/evento/:id (REST)', 'color: #10b981; font-weight: bold; font-size: 12px');
     
     if (evento) {
       return new Response(JSON.stringify(evento), {
@@ -72,10 +72,10 @@ export const restHandlers = [
   })
 ];
 
-// Handlers GraphQL
+// Handlers GraphQL - Con rutas relativas
 export const graphqlHandlers = [
   graphql.query('GetEventos', () => {
-    console.log('%c MSW: Interceptó Query GetEventos (GraphQL)', 'color: #f59e0b; font-weight: bold; font-size: 12px');
+    console.log('%cMSW: Interceptó Query GetEventos (GraphQL)', 'color: #f59e0b; font-weight: bold; font-size: 12px');
     return new Response(
       JSON.stringify({ data: { eventos } }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
@@ -84,7 +84,7 @@ export const graphqlHandlers = [
 
   graphql.query('GetEventoById', ({ variables }) => {
     const evento = eventos.find(e => e.id === variables.id);
-    console.log('%c MSW: Interceptó Query GetEventoById (GraphQL)', 'color: #f59e0b; font-weight: bold; font-size: 12px');
+    console.log('%cMSW: Interceptó Query GetEventoById (GraphQL)', 'color: #f59e0b; font-weight: bold; font-size: 12px');
     
     if (evento) {
       return new Response(
