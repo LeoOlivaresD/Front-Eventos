@@ -1,56 +1,56 @@
-# 🎭 Centro de Eventos - Front-End
+# Centro de Eventos - Front-End
 
-Una aplicación React moderna para explorar y comprar entradas a eventos. Demuestra el uso de **REST API** y **GraphQL** para cargar datos de diferentes formas, con **MSW (Mock Service Worker)** en desarrollo.
+Una aplicación React moderna para explorar y comprar entradas a eventos. Demuestra el uso de **REST API**, **GraphQL con Apollo Client** y **MSW (Mock Service Worker)** para simular un backend completo.
 
 ![React](https://img.shields.io/badge/React-19.2.0-blue?logo=react)
 ![Vite](https://img.shields.io/badge/Vite-7.2.4-purple?logo=vite)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-purple?logo=bootstrap)
-![MSW](https://img.shields.io/badge/MSW-2.0.0-orange?logo=mockserviceworker)
+![Apollo](https://img.shields.io/badge/Apollo_Client-3.11.10-311C87?logo=apollographql)
+![MSW](https://img.shields.io/badge/MSW-2.0.0-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
-## 🚀 Demo en Vivo
+## Demo en Vivo
 
 **[Ver aplicación en GitHub Pages](https://LeoOlivaresD.github.io/Front-Eventos/)**
 
 ---
 
-## ✨ Características Principales
+## Características Principales
 
-### 📡 **Dos APIs Diferentes**
-- ✅ **REST API** - Carga la lista de eventos en la página principal
-- ✅ **GraphQL** - Carga detalles individuales de cada evento
-- 🔄 **MSW en desarrollo** - Simula peticiones HTTP reales con Service Workers
-- 📊 **Badges informativos** - Muestra qué API se está usando
-- 🏭 **Modo producción** - Usa datos mock directamente sin HTTP
+### 📡 **Tres Tecnologías Integradas**
+- **REST API** - Carga la lista de eventos en la página principal
+- **GraphQL + Apollo Client** - Carga detalles individuales de cada evento
+- **MSW (Mock Service Worker)** - Simula un backend real en desarrollo
+- **Badges informativos** - Muestra qué tecnología se está usando
 
-### 🎨 **Diseño Profesional**
-- 🌙 Tema oscuro con gradientes modernos
-- 📱 Totalmente responsivo (mobile, tablet, desktop)
-- ✨ Animaciones suaves y transiciones
-- 💫 Efectos hover profesionales
+###  **Diseño Profesional**
+-  Tema oscuro con gradientes modernos
+-  Totalmente responsivo (mobile, tablet, desktop)
+-  Animaciones suaves y transiciones
+-  Efectos hover profesionales
 
-### 🛍️ **Funcionalidades**
-- 📋 Lista de eventos con imágenes
-- 🔍 Detalles completos de cada evento
-- 🎫 Modal de compra de entradas con cantidad configurable
-- 💰 Cálculo automático de total
-- 🎉 Confirmación visual de compra exitosa
-- 🔗 Navegación entre páginas con React Router
+### **Funcionalidades**
+-  Lista de eventos con imágenes
+-  Detalles completos de cada evento
+-  Modal de compra de entradas con cantidad configurable
+-  Cálculo automático de total
+-  Confirmación visual de compra exitosa
+-  Navegación entre páginas con React Router
 
-### 📸 **Imágenes Locales**
+### **Imágenes Locales**
 - Alojadas en `public/images/`
 - Funciona tanto en desarrollo local como en GitHub Pages
 
-### 📱 **Footer Completo**
+### **Footer Completo**
 - Enlaces rápidos
 - Redes sociales
 - Información de la empresa
 
 ---
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 ```
 Frontend:
 ├── React 19.2.0 - Librería UI
@@ -59,11 +59,11 @@ Frontend:
 ├── Bootstrap 5.3.8 - Diseño responsivo
 └── JavaScript ES6+ - Lenguaje
 
-Mocking & APIs:
+APIs y Mocking:
+├── Apollo Client 3.11.10 - Cliente GraphQL
+├── GraphQL 16.12.0 - Lenguaje de consultas
 ├── MSW 2.0.0 - Mock Service Worker (solo desarrollo)
-├── REST API Mock (src/mocks/restAPI.js)
-├── GraphQL Mock (src/mocks/graphqlAPI.js)
-└── Data Mock (src/mocks/data.js) - Datos compartidos
+└── REST API - Fetch nativo del navegador
 
 Deploy:
 └── GitHub Pages
@@ -71,7 +71,7 @@ Deploy:
 
 ---
 
-## 📦 Instalación
+## Instalación
 
 ### Requisitos previos
 - Node.js 16.x o superior
@@ -102,131 +102,158 @@ http://localhost:5173/
 
 ---
 
-## 🎯 Cómo Funcionan las APIs
+##Arquitectura: Cómo Funcionan las 3 Tecnologías Juntas
 
-### 🔄 Comportamiento según Entorno
+Este proyecto demuestra la integración de **REST**, **GraphQL con Apollo Client** y **MSW** trabajando simultáneamente.
 
-Este proyecto tiene **dos modos de operación**:
+### Flujo en Desarrollo (con MSW)
+```
+┌─────────────────────────────────────────────────────────┐
+│                    TU NAVEGADOR                          │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌──────────────┐           ┌──────────────┐           │
+│  │   Home       │           │  EventPage   │           │
+│  │  (REST API)  │           │  (GraphQL)   │           │
+│  └──────┬───────┘           └──────┬───────┘           │
+│         │                          │                    │
+│         │ fetch('/api/eventos')    │ Apollo Client     │
+│         │                          │ POST /graphql     │
+│         ▼                          ▼                    │
+│  ┌─────────────────────────────────────────┐           │
+│  │        MSW (Mock Service Worker)         │           │
+│  │         Intercepta peticiones HTTP       │           │
+│  └─────────────────┬───────────────────────┘           │
+│                    │                                    │
+│                    │ handlers.js                        │
+│                    ▼                                    │
+│  ┌─────────────────────────────────────────┐           │
+│  │  REST Handler    │   GraphQL Handler    │           │
+│  │  GET /eventos    │   GetEventoById      │           │
+│  └─────────────────────────────────────────┘           │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
 
-#### **🛠️ Modo Desarrollo (npm run dev)**
-- Usa **MSW (Mock Service Worker)** para interceptar peticiones HTTP
-- Simula un servidor real con rutas `/api/eventos` y `/api/graphql`
-- Permite practicar con APIs "reales" (aunque simuladas)
-- Los logs muestran que MSW está interceptando las peticiones
-
-#### **🚀 Modo Producción (GitHub Pages)**
-- **NO usa MSW** (Service Workers no son confiables en GitHub Pages)
-- Devuelve datos mock **directamente** sin hacer peticiones HTTP
-- Es más rápido y confiable para sitios estáticos
-- Los datos provienen de `src/mocks/data.js`
+### Flujo en Producción (GitHub Pages - sin MSW)
+```
+┌─────────────────────────────────────────────────────────┐
+│                  GITHUB PAGES                            │
+├─────────────────────────────────────────────────────────┤
+│                                                          │
+│  ┌──────────────┐           ┌──────────────┐           │
+│  │   Home       │           │  EventPage   │           │
+│  │  (REST API)  │           │  (GraphQL)   │           │
+│  └──────┬───────┘           └──────┬───────┘           │
+│         │                          │                    │
+│         │ Datos mock directos      │ Datos mock directos│
+│         ▼                          ▼                    │
+│  ┌─────────────────────────────────────────┐           │
+│  │       eventosMock (array local)          │           │
+│  │    NO hay peticiones HTTP reales         │           │
+│  └─────────────────────────────────────────┘           │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
 
 ---
 
-### 📊 REST API (Página Principal)
+## REST vs. GraphQL en este Proyecto
 
-**Ubicación:** `src/mocks/restAPI.js`
+### **REST API - Lista de Eventos (Home)**
 
-**Función:** `fetchEventosREST()`
+**¿Qué hace?**
+- Obtiene la lista completa de eventos
+- Usa el método HTTP: `GET /api/eventos`
 
-**Uso:**
+**Código en `EventList.jsx`:**
 ```javascript
-import { fetchEventosREST } from '../mocks/restAPI';
+// En desarrollo: MSW intercepta la petición
+const response = await fetch('/api/eventos');
+const datos = await response.json();
 
-// En un componente
-useEffect(() => {
-  fetchEventosREST().then(eventos => {
-    console.log('Eventos cargados:', eventos);
-  });
-}, []);
+// En producción: usa datos mock directos
+setEventos(eventosMock);
 ```
 
-**Lógica interna:**
-```javascript
-const isDevelopment = import.meta.env.DEV;
-
-if (isDevelopment) {
-  // Usar MSW - petición HTTP a /api/eventos
-  const response = await fetch('/api/eventos');
-  return response.json();
-} else {
-  // Producción - devolver datos directamente
-  return Promise.resolve(eventos);
-}
-```
-
-**Propósito:** Carga la lista completa de eventos en `EventList.jsx`
+**Ventajas:**
+- Simple y directo
+- Amplio soporte
+- Fácil de cachear
 
 ---
 
-### 📡 GraphQL (Página de Detalles)
+### **GraphQL + Apollo Client - Detalles del Evento**
 
-**Ubicación:** `src/mocks/graphqlAPI.js`
+**¿Qué hace?**
+- Obtiene los detalles de UN evento específico
+- El cliente define exactamente qué campos necesita
+- Apollo Client maneja automáticamente:
+  - Peticiones HTTP
+  - Caché de datos
+  - Estado de carga y errores
 
-**Función:** `queryEventoByIdGraphQL(id)`
-
-**Uso:**
+**Código en `EventPage.jsx`:**
 ```javascript
-import { queryEventoByIdGraphQL } from '../mocks/graphqlAPI';
+// Definir la query (qué datos queremos)
+const GET_EVENTO = gql`
+  query GetEventoById($id: Int!) {
+    evento(id: $id) {
+      id
+      titulo
+      categoria
+      fecha
+      lugar
+      descripcion
+      artista
+      ponente
+      precio
+      imagen
+    }
+  }
+`;
 
-// En un componente
-useEffect(() => {
-  queryEventoByIdGraphQL(1).then(evento => {
-    console.log('Evento cargado:', evento);
-  });
-}, []);
+// Usar Apollo para hacer la consulta
+const { loading, error, data } = useQuery(GET_EVENTO, {
+  variables: { id: parseInt(id) }
+});
 ```
 
-**Lógica interna:**
-```javascript
-const isDevelopment = import.meta.env.DEV;
-
-if (isDevelopment) {
-  // Usar MSW - petición POST a /api/graphql
-  const response = await fetch('/api/graphql', {
-    method: 'POST',
-    body: JSON.stringify({ query, variables })
-  });
-  return response.json();
-} else {
-  // Producción - filtrar datos directamente
-  return Promise.resolve(eventos.find(e => e.id === id));
-}
-```
-
-**Propósito:** Carga detalles de un evento específico en `EventPage.jsx`
+**Ventajas:**
+- Solo pide los datos que necesita
+- Caché automático
+- Tipado fuerte
+- Una sola petición para datos relacionados
 
 ---
 
-## 🗂️ Estructura del Proyecto
+## Estructura del Proyecto
 ```
 Front-Eventos/
 ├── public/
-│   ├── images/                    # Imágenes locales
+│   ├── images/                    # Imágenes de eventos
 │   │   ├── concierto-rock.jpg
 │   │   ├── conferencia-tech.jpeg
 │   │   ├── festival-jazz.jpg
 │   │   └── workshop-ux.webp
-│   └── mockServiceWorker.js       # Service Worker de MSW (solo desarrollo)
+│   └── mockServiceWorker.js       # Service Worker de MSW
 ├── src/
 │   ├── assets/                    # Recursos
 │   ├── components/
-│   │   ├── AppRoutes.jsx         # Rutas principales
+│   │   ├── AppRoutes.jsx         # Configuración de rutas
 │   │   ├── EventCard.jsx         # Tarjeta de evento
-│   │   ├── EventList.jsx         # Lista de eventos (REST API)
-│   │   └── Footer.jsx            # Footer
+│   │   ├── EventList.jsx         # Lista de eventos (REST)
+│   │   └── Footer.jsx            # Footer de la app
 │   ├── pages/
 │   │   ├── Home.jsx              # Página principal
-│   │   └── EventPage.jsx         # Detalles del evento (GraphQL)
+│   │   └── EventPage.jsx         # Detalles (GraphQL + Apollo)
 │   ├── mocks/
-│   │   ├── data.js               # 🆕 Datos mock compartidos
-│   │   ├── handlers.js           # 🆕 Handlers de MSW
-│   │   ├── browser.js            # 🆕 Configuración MSW
-│   │   ├── restAPI.js            # Mock REST API (con detección de entorno)
-│   │   └── graphqlAPI.js         # Mock GraphQL API (con detección de entorno)
-│   ├── App.jsx                   # Componente principal
+│   │   ├── browser.js            # Configuración de MSW
+│   │   └── handlers.js           # Handlers REST y GraphQL
+│   ├── App.jsx                   # Componente raíz
 │   ├── App.css                   # Estilos globales
 │   ├── index.css                 # Estilos base
-│   └── main.jsx                  # Punto de entrada (inicializa MSW)
+│   └── main.jsx                  # Entry point (inicia MSW)
 ├── vite.config.js                # Configuración Vite
 ├── package.json                  # Dependencias
 └── README.md                     # Este archivo
@@ -234,53 +261,70 @@ Front-Eventos/
 
 ---
 
-## 🔧 Archivos Clave de MSW
-
-### 📄 `src/mocks/data.js`
-Contiene los datos mock compartidos por todas las APIs:
-```javascript
-export const eventos = [
-  { id: 1, titulo: "Concierto de Rock", ... },
-  { id: 2, titulo: "Conferencia de Tecnología", ... },
-  // ...
-];
-```
+## Archivos Clave
 
 ### 📄 `src/mocks/handlers.js`
-Define los interceptores de MSW para REST y GraphQL:
+Contiene los datos mock y define cómo responder a peticiones REST y GraphQL:
 ```javascript
-export const restHandlers = [
-  http.get('/api/eventos', () => { ... }),
-  http.get('/api/evento/:id', () => { ... })
-];
+import { http, HttpResponse, delay, graphql } from 'msw';
 
-export const graphqlHandlers = [
-  graphql.query('GetEventos', () => { ... }),
-  graphql.query('GetEventoById', () => { ... })
-];
+const eventos = [ /* datos mock */ ];
+
+// Handler REST
+http.get('/api/eventos', async () => {
+  await delay(500);
+  return HttpResponse.json(eventos);
+});
+
+// Handler GraphQL
+graphql.query('GetEventoById', async ({ variables }) => {
+  await delay(500);
+  const evento = eventos.find(e => e.id === variables.id);
+  return HttpResponse.json({ data: { evento } });
+});
 ```
 
-### 📄 `src/mocks/browser.js`
+### `src/mocks/browser.js`
 Configura el Service Worker de MSW:
 ```javascript
 import { setupWorker } from 'msw/browser';
+import { handlers } from './handlers';
+
 export const worker = setupWorker(...handlers);
 ```
 
-### 📄 `src/main.jsx`
-Inicializa MSW solo en desarrollo:
+### `src/main.jsx`
+Inicializa MSW antes de renderizar la app y configura Apollo Client:
 ```javascript
-async function initMSW() {
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client/react';
+
+// Inicializar MSW solo en desarrollo
+async function enableMocking() {
   if (import.meta.env.DEV) {
-    const { worker } = await import('./mocks/browser.js');
-    await worker.start({ ... });
+    const { worker } = await import('./mocks/browser');
+    return worker.start({ /* config */ });
   }
 }
+
+// Configurar Apollo Client
+const client = new ApolloClient({
+  link: new HttpLink({ uri: "/graphql" }),
+  cache: new InMemoryCache()
+});
+
+enableMocking().then(() => {
+  createRoot(document.getElementById('root')).render(
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  )
+});
 ```
 
 ---
 
-## 🚀 Scripts Disponibles
+## Scripts Disponibles
 ```bash
 # Desarrollo local (con MSW activo)
 npm run dev
@@ -288,7 +332,7 @@ npm run dev
 # Build para producción
 npm run build
 
-# Preview del build (sin MSW)
+# Preview del build (sin MSW, simula producción)
 npm run preview
 
 # Deploy a GitHub Pages
@@ -300,96 +344,42 @@ npm run lint
 
 ---
 
-## 📊 Demostrando REST vs GraphQL
+## Logs en la Consola
 
-### En la Consola (F12 → Console)
+### En Desarrollo (npm run dev)
 
-#### **🛠️ En Desarrollo (npm run dev)**
-
-**Cuando cargas la página principal:**
+**Al cargar la página principal:**
 ```
 [MSW] Mocking enabled.
-🟢 MSW: Interceptó GET /api/eventos (REST)
-📡 API: REST - Cargando eventos desde restAPI.js
-✅ API: REST - Datos recibidos correctamente
-Array(4) [ {...}, {...}, {...}, {...} ]
+MSW: Interceptó GET /api/eventos (REST)
+API: REST - Cargando eventos con MSW
+API: REST - Datos cargados correctamente
 ```
 
-**Cuando haces click en "Ver Detalles":**
+**Al hacer clic en "Ver Detalles":**
 ```
-🟠 MSW: Interceptó Query GetEventoById (GraphQL)
-📡 API: GraphQL - Cargando evento ID 1 desde graphqlAPI.js
-✅ API: GraphQL - Evento recibido correctamente
-Object { id: 1, titulo: "Concierto de Rock", ... }
+MSW: Interceptó Query GetEventoById (GraphQL)
+Evento cargado con: GraphQL + Apollo Client
 ```
 
-#### **🚀 En Producción (GitHub Pages)**
+### En Producción (GitHub Pages)
 
-**Cuando cargas la página principal:**
+**Al cargar la página principal:**
 ```
-📡 API: REST - Cargando eventos desde restAPI.js
-🏭 REST API: Modo producción - usando datos mock directos
-✅ API: REST - Datos recibidos correctamente
-```
-
-**Cuando haces click en "Ver Detalles":**
-```
-📡 API: GraphQL - Cargando evento ID 1 desde graphqlAPI.js
-🏭 GraphQL: Modo producción - usando datos mock directos
-✅ API: GraphQL - Evento recibido correctamente
+API: REST - Modo producción (sin MSW)
+API: REST - Datos cargados correctamente
 ```
 
-### En la Interfaz
-
-- **Página Home:** Badge verde mostrando "📡 Datos cargados con: REST API"
-- **Página Detalles:** Badge naranja mostrando "📡 Evento cargado con: GraphQL"
-
----
-
-## ❓ FAQ: ¿Por qué no usar MSW en GitHub Pages?
-
-### 🤔 El Problema
-
-**MSW** funciona con Service Workers que interceptan peticiones HTTP. En **GitHub Pages**:
-
-- ❌ No hay servidor backend real
-- ❌ Las rutas `/api/eventos` no existen
-- ❌ Service Workers pueden fallar al registrarse
-- ❌ Hay problemas con el path del `mockServiceWorker.js`
-
-### ✅ La Solución
-
-Implementamos **detección de entorno**:
-```javascript
-const isDevelopment = import.meta.env.DEV;
-
-if (isDevelopment) {
-  // Desarrollo: usar MSW para simular HTTP
-  fetch('/api/eventos');
-} else {
-  // Producción: datos mock directos
-  Promise.resolve(datos);
-}
+**Al ver detalles:**
+```
+Evento cargado con: GraphQL + Apollo Client (Producción)
 ```
 
-### 🎯 Ventajas
+## Configuración de GitHub Pages
 
-✅ **Desarrollo realista** - Practicas con peticiones HTTP "reales"
-✅ **Producción confiable** - No depende de Service Workers
-✅ **Más rápido** - Sin overhead de HTTP en producción
-✅ **Educativo** - Muestra ambas técnicas de mocking
+El proyecto está configurado para funcionar en GitHub Pages:
 
----
-
-
-## 🔧 Configuración de GitHub Pages
-
-El proyecto está configurado para funcionar en GitHub Pages bajo:
-```
-https://LeoOlivaresD.github.io/Front-Eventos/
-```
-
-**Configuración en `vite.config.js`:**
+**`vite.config.js`:**
 ```javascript
 export default defineConfig({
   base: '/Front-Eventos/',
@@ -397,12 +387,12 @@ export default defineConfig({
 })
 ```
 
-**Configuración en `AppRoutes.jsx`:**
+**`AppRoutes.jsx`:**
 ```javascript
 <Router basename="/Front-Eventos/">
 ```
 
-**Configuración en `package.json`:**
+**`package.json`:**
 ```json
 {
   "homepage": "https://LeoOlivaresD.github.io/Front-Eventos/",
@@ -414,78 +404,66 @@ export default defineConfig({
 
 ---
 
-## 📱 Responsividad
+## Responsividad
 
 La aplicación es completamente responsiva:
 
-- **📱 Mobile** (320px - 576px) - Optimizado para smartphones
-- **📱 Tablet** (576px - 992px) - Optimizado para tablets
-- **💻 Desktop** (992px+) - Versión completa con todas las características
+- **Mobile** (320px - 576px) - Optimizado para smartphones
+- **Tablet** (576px - 992px) - Optimizado para tablets
+- **Desktop** (992px+) - Versión completa
 
 ---
 
-## 🎓 Funcionalidades Educativas
+## Conceptos Demostrados
 
-Este proyecto demuestra:
+Este proyecto es educativo y demuestra:
 
-✅ **Componentes funcionales** con React Hooks
-✅ **Estado y ciclo de vida** con `useState` y `useEffect`
-✅ **Navegación SPA** con React Router
+✅ **React Hooks** - useState, useEffect, custom hooks
+✅ **React Router** - Navegación SPA
+✅ **Apollo Client** - Cliente GraphQL profesional
+✅ **GraphQL Queries** - Consultas tipadas
 ✅ **MSW** - Mock Service Worker para desarrollo
-✅ **Detección de entorno** - Diferentes estrategias según dev/prod
-✅ **Mocks de APIs** (REST y GraphQL)
-✅ **Styling con CSS** y Bootstrap
-✅ **Manejo de errores y loading states**
-✅ **Modales e interactividad**
-✅ **Deploy a GitHub Pages**
-✅ **Solución de problemas de producción**
+✅ **REST API** - Peticiones HTTP tradicionales
+✅ **Detección de entorno** - Diferentes estrategias dev/prod
+✅ **Manejo de estado** - Loading, error, data
+✅ **Modales e interactividad** - UX profesional
+✅ **Deploy a GitHub Pages** - Producción real
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
-### Problema: "Failed to load resource: 404" en GitHub Pages
+### "useQuery is not exported from @apollo/client"
 
-**Causa:** MSW no funciona en producción estática
+**Solución:**
+```javascript
+// Incorrecto
+import { useQuery } from '@apollo/client';
 
-**Solución:** Ya implementada - el código detecta el entorno y usa datos mock directos
+//Correcto
+import { useQuery } from '@apollo/client/react';
+```
 
-### Problema: Imágenes no cargan en GitHub Pages
+### MSW no intercepta peticiones en desarrollo
 
-**Causa:** Rutas incorrectas para el `basename`
-
-**Solución:** Usar rutas relativas o absolutas con `/Front-Eventos/`
-
-### Problema: MSW no intercepta en desarrollo
-
-**Causa:** Service Worker no registrado correctamente
-
-**Solución:** 
+**Solución:**
 1. Verifica que `public/mockServiceWorker.js` existe
-2. Reinicia el servidor (`npm run dev`)
-3. Limpia cache del navegador
+2. Reinicia el servidor: `npm run dev`
+3. Limpia caché del navegador (Ctrl + Shift + Delete)
 
----
+### Errores de Apollo sobre campos faltantes
 
-## 📚 Recursos de Aprendizaje
-
-- [MSW Documentation](https://mswjs.io/)
-- [React Router](https://reactrouter.com/)
-- [Vite Guide](https://vitejs.dev/guide/)
-- [GraphQL Basics](https://graphql.org/learn/)
-- [REST API Best Practices](https://restfulapi.net/)
-
----
-
-## 👨‍💻 Autor
+**Solución:** Asegura que todos los eventos tengan todos los campos (aunque sean `null`):
+```javascript
+{
+  id: 1,
+  titulo: "Evento",
+  artista: "Artista X",
+  ponente: null,  // ← Importante: incluir aunque sea null
+  // ... otros campos
+}
+```
+## Autor
 
 **Leo Olivares D.**
 - GitHub: [@LeoOlivaresD](https://github.com/LeoOlivaresD)
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
----
