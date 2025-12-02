@@ -272,4 +272,46 @@ describe('EventPage Component', () => {
       expect(screen.queryByText(/Cantidad de entradas:/i)).not.toBeInTheDocument();
     });
   });
+  it('debería incrementar y decrementar la cantidad de entradas', async () => {
+    // Definimos el mock de la respuesta para este test específico
+    const mockResponse = {
+      data: { evento: eventoMock }
+    };
+
+    // Renderizamos la página con el mock
+    renderEventPage(mockResponse);
+
+    // Esperamos a que cargue el título del evento para asegurar que la página ya no está cargando
+    await waitFor(() => {
+      expect(screen.getByText('Concierto de Rock')).toBeInTheDocument();
+    });
+
+    // Buscamos y hacemos clic en el botón "Comprar Entrada"
+    // Nota: getAllByText devuelve un array, tomamos el primero [0] que suele ser el botón principal
+    const buyButtons = screen.getAllByText(/🎟️ Comprar Entrada/i);
+    fireEvent.click(buyButtons[0]);
+
+    // Esperamos a que el modal se abra buscando el input de cantidad
+    await waitFor(() => {
+      expect(screen.getByRole('spinbutton')).toBeInTheDocument();
+    });
+
+    // Obtenemos las referencias a los elementos del modal
+    // Asegúrate de que los caracteres '+' y '−' coincidan exactamente con tu componente
+    const btnMas = screen.getByText('+');
+    const btnMenos = screen.getByText('−'); // Ojo: es el símbolo matemático '−', no el guion '-'
+    const input = screen.getByRole('spinbutton');
+
+    // 1. Testear incremento
+    fireEvent.click(btnMas);
+    expect(input).toHaveValue(2); // Usamos toHaveValue para inputs es más semántico
+
+    // 2. Testear decremento (volver a 1)
+    fireEvent.click(btnMenos);
+    expect(input).toHaveValue(1);
+    
+    // 3. Testear límite inferior (no debe bajar de 1)
+    fireEvent.click(btnMenos);
+    expect(input).toHaveValue(1);
+  });
 });

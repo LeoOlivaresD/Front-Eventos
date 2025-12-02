@@ -1,11 +1,16 @@
-import { expect, afterEach } from 'vitest';
+// src/setupTests.js
+import { expect, afterEach, beforeAll, afterAll } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import * as matchers from '@testing-library/jest-dom/matchers';
+import { server } from './mocks/server'; // <--- Importar el server
 
-// Extiende los matchers de vitest con los de jest-dom
+// Extiende los matchers
 expect.extend(matchers);
 
-// Limpia después de cada test
+// Configuración de MSW para todas las pruebas
+beforeAll(() => server.listen({ onUnhandledRequest: 'error' })); // Iniciar servidor
 afterEach(() => {
+  server.resetHandlers(); // Resetear handlers entre tests
   cleanup();
 });
+afterAll(() => server.close()); // Cerrar servidor al terminar

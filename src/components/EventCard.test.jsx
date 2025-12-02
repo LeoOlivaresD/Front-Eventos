@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import EventCard from './EventCard';
-
+import { fireEvent } from '@testing-library/react';
 // Mock de datos de prueba
 const eventoMock = {
   id: 1,
@@ -76,4 +76,38 @@ describe('EventCard Component', () => {
     // Verificar que el título sigue presente
     expect(screen.getByText('Concierto de Rock')).toBeInTheDocument();
   });
+});
+it('debería manejar los eventos del mouse en la imagen', () => {
+  render(
+    <MemoryRouter>
+      <EventCard evento={eventoMock} />
+    </MemoryRouter>
+  );
+
+  const img = screen.getByAltText('Concierto de Rock');
+  
+  // Simular hover (Mouse Enter)
+  fireEvent.mouseEnter(img);
+  expect(img).toHaveStyle('transform: scale(1.1)'); // Verifica el estilo inline
+
+  // Simular salida (Mouse Leave)
+  fireEvent.mouseLeave(img);
+  expect(img).toHaveStyle('transform: scale(1)');
+});
+
+it('debería manejar error de carga de imagen', () => {
+  render(
+    <MemoryRouter>
+      <EventCard evento={eventoMock} />
+    </MemoryRouter>
+  );
+
+  const img = screen.getByAltText('Concierto de Rock');
+  // El div placeholder es el hermano siguiente
+  // Nota: en tu código el placeholder tiene el estilo inicial display: none
+  
+  fireEvent.error(img);
+  
+  // Al dar error, la imagen se oculta (display: none)
+  expect(img).toHaveStyle('display: none');
 });
