@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1764723956468" clover="3.2.0">
-  <project timestamp="1764723956468" name="All files">
-    <metrics statements="96" coveredstatements="54" conditionals="36" coveredconditionals="17" methods="31" coveredmethods="16" elements="163" coveredelements="87" complexity="0" loc="96" ncloc="96" packages="3" files="6" classes="6"/>
+<coverage generated="1764725240616" clover="3.2.0">
+  <project timestamp="1764725240616" name="All files">
+    <metrics statements="96" coveredstatements="55" conditionals="36" coveredconditionals="17" methods="31" coveredmethods="16" elements="163" coveredelements="88" complexity="0" loc="96" ncloc="96" packages="3" files="6" classes="6"/>
     <package name="components">
       <metrics statements="29" coveredstatements="25" conditionals="12" coveredconditionals="8" methods="8" coveredmethods="7"/>
       <file name="EventCard.jsx" path="C:\VSC WORKSPACE\Front-Eventos\src\components\EventCard.jsx">
@@ -16,28 +16,28 @@
         <metrics statements="24" coveredstatements="20" conditionals="6" coveredconditionals="3" methods="4" coveredmethods="3"/>
         <line num="5" count="3" type="stmt"/>
         <line num="56" count="3" type="stmt"/>
-        <line num="59" count="20" type="stmt"/>
-        <line num="60" count="20" type="stmt"/>
-        <line num="61" count="20" type="stmt"/>
-        <line num="63" count="20" type="stmt"/>
-        <line num="64" count="11" type="stmt"/>
-        <line num="65" count="11" type="stmt"/>
-        <line num="66" count="11" type="stmt"/>
-        <line num="68" count="11" type="cond" truecount="1" falsecount="1"/>
-        <line num="70" count="11" type="stmt"/>
-        <line num="71" count="11" type="stmt"/>
-        <line num="72" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="59" count="12" type="stmt"/>
+        <line num="60" count="12" type="stmt"/>
+        <line num="61" count="12" type="stmt"/>
+        <line num="63" count="12" type="stmt"/>
+        <line num="64" count="7" type="stmt"/>
+        <line num="65" count="7" type="stmt"/>
+        <line num="66" count="7" type="stmt"/>
+        <line num="68" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="70" count="7" type="stmt"/>
+        <line num="71" count="7" type="stmt"/>
+        <line num="72" count="4" type="cond" truecount="1" falsecount="1"/>
         <line num="73" count="0" type="stmt"/>
-        <line num="75" count="8" type="stmt"/>
-        <line num="76" count="8" type="stmt"/>
+        <line num="75" count="4" type="stmt"/>
+        <line num="76" count="4" type="stmt"/>
         <line num="79" count="0" type="stmt"/>
         <line num="80" count="0" type="stmt"/>
         <line num="81" count="0" type="stmt"/>
-        <line num="84" count="8" type="stmt"/>
-        <line num="85" count="8" type="stmt"/>
+        <line num="84" count="4" type="stmt"/>
+        <line num="85" count="4" type="stmt"/>
         <line num="87" count="1" type="stmt"/>
-        <line num="89" count="9" type="stmt"/>
-        <line num="93" count="11" type="stmt"/>
+        <line num="89" count="5" type="stmt"/>
+        <line num="93" count="7" type="stmt"/>
       </file>
     </package>
     <package name="mocks">
@@ -73,22 +73,22 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="44" coveredstatements="23" conditionals="20" coveredconditionals="9" methods="17" coveredmethods="8"/>
+      <metrics statements="44" coveredstatements="24" conditionals="20" coveredconditionals="9" methods="17" coveredmethods="8"/>
       <file name="EventPage.jsx" path="C:\VSC WORKSPACE\Front-Eventos\src\pages\EventPage.jsx">
-        <metrics statements="44" coveredstatements="23" conditionals="20" coveredconditionals="9" methods="16" coveredmethods="7"/>
+        <metrics statements="44" coveredstatements="24" conditionals="20" coveredconditionals="9" methods="16" coveredmethods="7"/>
         <line num="7" count="1" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
         <line num="61" count="1" type="stmt"/>
-        <line num="79" count="34" type="stmt"/>
-        <line num="80" count="34" type="stmt"/>
-        <line num="81" count="34" type="stmt"/>
-        <line num="82" count="34" type="stmt"/>
-        <line num="85" count="34" type="stmt"/>
-        <line num="86" count="34" type="stmt"/>
-        <line num="87" count="34" type="stmt"/>
-        <line num="90" count="34" type="cond" truecount="1" falsecount="1"/>
-        <line num="95" count="34" type="stmt"/>
-        <line num="96" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="79" count="18" type="stmt"/>
+        <line num="80" count="18" type="stmt"/>
+        <line num="81" count="18" type="stmt"/>
+        <line num="82" count="18" type="stmt"/>
+        <line num="85" count="18" type="stmt"/>
+        <line num="86" count="18" type="stmt"/>
+        <line num="87" count="18" type="stmt"/>
+        <line num="90" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="95" count="18" type="stmt"/>
+        <line num="96" count="6" type="cond" truecount="1" falsecount="1"/>
         <line num="97" count="0" type="stmt"/>
         <line num="98" count="0" type="stmt"/>
         <line num="99" count="0" type="stmt"/>
@@ -99,19 +99,19 @@
         <line num="106" count="0" type="stmt"/>
         <line num="108" count="0" type="stmt"/>
         <line num="111" count="0" type="stmt"/>
-        <line num="116" count="34" type="cond" truecount="1" falsecount="1"/>
-        <line num="117" count="34" type="cond" truecount="1" falsecount="1"/>
-        <line num="118" count="34" type="cond" truecount="1" falsecount="1"/>
-        <line num="120" count="34" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
-        <line num="122" count="0" type="stmt"/>
+        <line num="116" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="117" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="118" count="18" type="cond" truecount="1" falsecount="1"/>
+        <line num="120" count="18" type="stmt"/>
+        <line num="121" count="1" type="stmt"/>
+        <line num="122" count="1" type="stmt"/>
         <line num="123" count="0" type="stmt"/>
         <line num="124" count="0" type="stmt"/>
         <line num="125" count="0" type="stmt"/>
-        <line num="129" count="34" type="cond" truecount="2" falsecount="0"/>
-        <line num="291" count="5" type="stmt"/>
-        <line num="351" count="2" type="stmt"/>
-        <line num="369" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="129" count="18" type="cond" truecount="2" falsecount="0"/>
+        <line num="291" count="3" type="stmt"/>
+        <line num="351" count="1" type="stmt"/>
+        <line num="369" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="384" count="1" type="stmt"/>
         <line num="417" count="1" type="stmt"/>
         <line num="430" count="0" type="stmt"/>
