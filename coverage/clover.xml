@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1764725240616" clover="3.2.0">
-  <project timestamp="1764725240616" name="All files">
-    <metrics statements="96" coveredstatements="55" conditionals="36" coveredconditionals="17" methods="31" coveredmethods="16" elements="163" coveredelements="88" complexity="0" loc="96" ncloc="96" packages="3" files="6" classes="6"/>
+<coverage generated="1764726711399" clover="3.2.0">
+  <project timestamp="1764726711399" name="All files">
+    <metrics statements="73" coveredstatements="53" conditionals="32" coveredconditionals="20" methods="25" coveredmethods="16" elements="130" coveredelements="89" complexity="0" loc="73" ncloc="73" packages="2" files="4" classes="4"/>
     <package name="components">
-      <metrics statements="29" coveredstatements="25" conditionals="12" coveredconditionals="8" methods="8" coveredmethods="7"/>
+      <metrics statements="29" coveredstatements="29" conditionals="12" coveredconditionals="11" methods="8" coveredmethods="8"/>
       <file name="EventCard.jsx" path="C:\VSC WORKSPACE\Front-Eventos\src\components\EventCard.jsx">
         <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="5" methods="4" coveredmethods="4"/>
         <line num="19" count="1" type="stmt"/>
@@ -13,63 +13,31 @@
         <line num="25" count="1" type="stmt"/>
       </file>
       <file name="EventList.jsx" path="C:\VSC WORKSPACE\Front-Eventos\src\components\EventList.jsx">
-        <metrics statements="24" coveredstatements="20" conditionals="6" coveredconditionals="3" methods="4" coveredmethods="3"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="56" count="3" type="stmt"/>
-        <line num="59" count="12" type="stmt"/>
-        <line num="60" count="12" type="stmt"/>
-        <line num="61" count="12" type="stmt"/>
-        <line num="63" count="12" type="stmt"/>
-        <line num="64" count="7" type="stmt"/>
-        <line num="65" count="7" type="stmt"/>
-        <line num="66" count="7" type="stmt"/>
-        <line num="68" count="7" type="cond" truecount="1" falsecount="1"/>
-        <line num="70" count="7" type="stmt"/>
-        <line num="71" count="7" type="stmt"/>
-        <line num="72" count="4" type="cond" truecount="1" falsecount="1"/>
-        <line num="73" count="0" type="stmt"/>
-        <line num="75" count="4" type="stmt"/>
-        <line num="76" count="4" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="84" count="4" type="stmt"/>
-        <line num="85" count="4" type="stmt"/>
-        <line num="87" count="1" type="stmt"/>
-        <line num="89" count="5" type="stmt"/>
-        <line num="93" count="7" type="stmt"/>
-      </file>
-    </package>
-    <package name="mocks">
-      <metrics statements="23" coveredstatements="6" conditionals="4" coveredconditionals="0" methods="6" coveredmethods="1"/>
-      <file name="handlers.js" path="C:\VSC WORKSPACE\Front-Eventos\src\mocks\handlers.js">
-        <metrics statements="22" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="6" coveredmethods="1"/>
-        <line num="4" count="5" type="stmt"/>
+        <metrics statements="24" coveredstatements="24" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
+        <line num="5" count="5" type="stmt"/>
         <line num="56" count="5" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="68" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="76" count="5" type="stmt"/>
-        <line num="78" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="84" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="stmt"/>
-        <line num="88" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="97" count="5" type="stmt"/>
-      </file>
-      <file name="server.js" path="C:\VSC WORKSPACE\Front-Eventos\src\mocks\server.js">
-        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="6" count="5" type="stmt"/>
+        <line num="59" count="9" type="stmt"/>
+        <line num="60" count="9" type="stmt"/>
+        <line num="61" count="9" type="stmt"/>
+        <line num="63" count="9" type="stmt"/>
+        <line num="64" count="5" type="stmt"/>
+        <line num="65" count="5" type="stmt"/>
+        <line num="66" count="5" type="stmt"/>
+        <line num="68" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="4" type="stmt"/>
+        <line num="71" count="4" type="stmt"/>
+        <line num="72" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="76" count="2" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="84" count="3" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="89" count="4" type="stmt"/>
+        <line num="93" count="5" type="stmt"/>
       </file>
     </package>
     <package name="pages">
